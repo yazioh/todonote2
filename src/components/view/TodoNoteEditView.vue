@@ -177,11 +177,15 @@
 <script>
 //------------------------------------------
 import Areas from '../mixin/Areas'
+// DATA
+import TODO from '../../classes/TODO.js'
+let U = new TODO()
+//import TASK from './components/classes/TASK.js'
+console.log("test ID",U.newID())
+ 
 const WEEK_MAX = 5 * 8 * 60 // min 
 export default {
   
-
-
   mixins:[Areas],
   props:{
 

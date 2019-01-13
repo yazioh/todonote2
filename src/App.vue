@@ -51,8 +51,8 @@ import Query from './components/mixin/Query'
 
 
 // DATA
-import TODO from './components/classes/TODO.js'
-import TASK from './components/classes/TASK.js'
+import TODO from './classes/TODO.js'
+import TASK from './classes/TASK.js'
 
 // 現在どのモードで表示しているか判定 
 // これは手動判定の必要がある
