@@ -1,5 +1,5 @@
 <template>
-    <i :class="iconName" :title="title"/>
+    <i :class="iconName" :title="title" />
     <!-- <font-awesome-icon icon="user-secret" />
     <i class="fab fa-coffee-icon"/> -->
 </template>

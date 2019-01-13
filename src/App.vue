@@ -1,11 +1,28 @@
 <template>
   <div id="app" :class="myClass">
-    <!-- メインエリア（排他選択する） -->
     <b-row id="main" class="no-gutters h100" :style="mainHeight" >
       <b-col md="11" style="height:100%" >
-        <TodoNoteView :show="true" :lotate="lotate" @show="viewActive">
+        <!-- メインエリア（排他選択する） -->
+        <TodoNoteView ref="main" :show="true" :lotate="lotate" @show="viewActive">
           <TodoNoteMainView :TODOs="QueryTODOs" @update="onUpdate" />
         </TodoNoteView>
+
+        <!-- -->
+        <TodoNoteView ref="flat" :show="false" :lotate="lotate" @show="viewActive">
+          flat View 
+        </TodoNoteView>
+        
+        <!-- -->
+        <TodoNoteView ref="tag" :show="false" :lotate="lotate" @show="viewActive">
+          tag  View
+        </TodoNoteView>
+        
+        <!-- -->
+        <TodoNoteView ref="tag" :show="false" :lotate="lotate" @show="viewActive">
+          tag  View
+        </TodoNoteView>
+
+
       </b-col>
       <b-col md="1">
         <!-- クエリーコントロールPC -->
@@ -28,6 +45,8 @@ import TodoNoteMainView from './components/view/TodoNoteMainView'
 import TodoNoteEditView from './components/view/TodoNoteEditView'
 import TodoNoteSideBar from './components/view/TodoNoteSideBar'
 import TodoNoteFooter from './components/view/TodoNoteFooter'
+
+import Storage from './components/mixin/Storage'
 import Query from './components/mixin/Query'
 
 
@@ -52,7 +71,7 @@ const UI_BAR_WIDTH_L = 120;
 
 export default {
   name: 'App',
-  mixins:[Query, TodoNoteViewSelector],
+  mixins:[Query,Storage, TodoNoteViewSelector],
   components: {
     TodoNoteView,
     TodoNoteSideBar,
@@ -264,4 +283,6 @@ function _todo(title, area,tasks){
     padding: .5rem;
   }
 
+  p { margin-bottom: 0 }
+  p + p { margin-top: 1rem }
 </style>
