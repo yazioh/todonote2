@@ -1,5 +1,5 @@
 <template>
-  <div :class="styles" >
+  <div :class="styles">
     <b-form-row class="header">
       <b-col sm="9"><iconFont :name="areaIcon"/> {{ areaTitle }}</b-col>
       <b-col sm="3">
@@ -16,8 +16,8 @@
     </b-form-row>
 
     <ul class="fusens mt10">
-      <li v-for="todo in TODOs" :key="todo.id">
-        <TodoNoteSticky :todo="todo" @update="onUpdate"/>
+      <li v-for="todo in TODOs" :key="todo.id" @click="onClickTodo(todo)" >
+        <TodoNoteSticky :todo="todo" @update="onUpdate" />
       </li>
     </ul>
 
@@ -81,6 +81,10 @@ export default {
     onUpdate: function(payload){
       this.$emit("update",payload)
     },
+
+    onClickTodo: function(todo){
+      this.$emit("edit", todo)
+    }
   }
 }
 </script>

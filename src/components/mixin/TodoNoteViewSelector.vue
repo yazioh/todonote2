@@ -30,7 +30,7 @@ export default {
         }
     },
     created: function(){
-        console.log("mixn", "view selector")
+        // console.log("mixn", "view selector")
     }
 
 }

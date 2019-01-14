@@ -15,6 +15,19 @@ export default class TASK {
     this.TodoID = json.TodoID || ''
     this.label = json.label || 'any task'
     this.status = json.status || STATUS_YET
+    this.regdt = json.regdt || new Date()
+    this.updt = json.updt || new Date()    
+  }
+
+  toJson (){
+    return {
+      id    : this.id     || '',
+      TodoID: this.TodoID || '',
+      label : this.label  || '',
+      status: this.status || '',
+      regdt : this.regdt  || '',
+      updt  : this.updt   || '', 
+    }
   }
 
   newID () {

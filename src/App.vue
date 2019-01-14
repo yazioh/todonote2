@@ -4,7 +4,9 @@
       <b-col md="11" style="height:100%" >
         <!-- メインエリア（排他選択する） -->
         <TodoNoteView ref="main" :show="true" :lotate="lotate" @show="viewActive">
-          <TodoNoteMainView :TODOs="QueryTODOs" @update="onUpdate" />
+          <TodoNoteMainView :TODOs="QueryTODOs" @update="onUpdate" 
+              @edit="onEdit"
+            />
         </TodoNoteView>
 
         <!-- -->
@@ -26,11 +28,16 @@
       </b-col>
       <b-col md="1">
         <!-- クエリーコントロールPC -->
-        <TodoNoteSideBar :show="lotate=='landscape'" @edit="onEdit" />
+        <TodoNoteSideBar :show="lotate=='landscape'" @edit="onEdit" :conf="dataConfig"/>
      </b-col>
     </b-row>
 
-    <TodoNoteEditView ref="edit" @update="onUpdate" />
+    <!-- Editor View -->
+    <TodoNoteEditView ref="edit" 
+      :conf="dataConfig"
+      :editTodo="EditTodo" 
+      @update="onEditorUpdate" 
+    />
 </div>
 </template>
 <script>
@@ -46,13 +53,10 @@ import TodoNoteEditView from './components/view/TodoNoteEditView'
 import TodoNoteSideBar from './components/view/TodoNoteSideBar'
 import TodoNoteFooter from './components/view/TodoNoteFooter'
 
-import Storage from './components/mixin/Storage'
 import Query from './components/mixin/Query'
+import Data from './components/mixin/Data'
 
 
-// DATA
-import TODO from './classes/TODO.js'
-import TASK from './classes/TASK.js'
 
 // 現在どのモードで表示しているか判定 
 // これは手動判定の必要がある
@@ -71,7 +75,7 @@ const UI_BAR_WIDTH_L = 120;
 
 export default {
   name: 'App',
-  mixins:[Query,Storage, TodoNoteViewSelector],
+  mixins:[Data, Query, TodoNoteViewSelector],
   components: {
     TodoNoteView,
     TodoNoteSideBar,
@@ -106,9 +110,12 @@ export default {
       lotate: '',
       windowWidth: '',
       windowHeight: '',
-      TODOs : {},
-      TASKs : {},
-      TAGs : {}
+      view:{
+        editor: false
+      },
+
+      // for 編集 View
+      EditTodo:{},
     }
   },
   methods:{
@@ -134,10 +141,17 @@ export default {
 
     },
 
-    onEdit:function(todoId){
+    onEdit:function(todo){
       // seek 
-      let edit = new TODO();
-      this.$refs.edit.show(edit)
+      this.EditTodo = (todo) ? todo :this.dataNewTodo();
+      console.log(this.EditTodo)
+      this.$refs.edit.show()
+    },
+
+    onEditorUpdate :function(data){
+      
+      this.EditTodo = this.dataUpdateEdit(data.payload)
+      this.view.editor = false;
     },
 
     /**
@@ -158,42 +172,7 @@ export default {
    * 描画前起動処理
    */
   created:function(){
-    this.TASKs = [
-      _task("なんかかか","v", 1),
-      _task("なんかかか","_", 1),
-      _task("なんかかか","_", 1),
-      _task("なんかかか","_", 2),
-      _task("なんかかか","_", 3),
-      _task("なんかかか","_", 4),
-      _task("なんかかか","_", 5),
-      _task("なんかかか","_", 6),
-    ]
-    console.log(this.TASKs)
-
-    this.TODOs = [
-      _todo("hoge",'a1', this.TASKs),
-      _todo("hoge2",'a1', this.TASKs),
-      _todo("hoge3",'a1', this.TASKs),
-      _todo("hoge4",'a1', this.TASKs),
-      _todo("hoge5",'a2', this.TASKs),
-      _todo("hoge6",'a2', this.TASKs),
-      _todo("hoge7",'a1', this.TASKs),
-      _todo("hoge8",'a2', this.TASKs),
-      _todo("hoge9",'a2', this.TASKs),
-      _todo("hoge10",'a2', this.TASKs),
-      _todo("hoge11",'a2', this.TASKs),
-      _todo("hoge12",'a3', this.TASKs),
-      _todo("hoge13",'a4', this.TASKs),
-      _todo("hoge14",'a4', this.TASKs),
-      _todo("hoge15",'a3', this.TASKs),
-      _todo("hoge16",'a4', this.TASKs),
-      _todo("hoge17",'a4', this.TASKs),
-      _todo("hoge18",'a4', this.TASKs),
-      _todo("hoge19",'a4', this.TASKs),
-      _todo("hoge20",'a3', this.TASKs),
-    ]
-    console.log(this.TODOs)
-
+    console.log("app created")
   },
   /**
    * 物理マウント完了時
@@ -205,31 +184,7 @@ export default {
 
 }
 
-// ダミーデータ
-var todoID = 19010100000
-var taskID = 19010100000
 
-function  _task(label, stat, no){
-  taskID ++;
-  return new TASK({
-    id: 'T'+taskID,
-    TodoID: (todoID*1 + no),
-    label: label,
-    status: stat || '_'
-  })
-}
-function _todo(title, area,tasks){
-  ++ todoID;
-  return new TODO({
-    "id": todoID,
-    "title": title,
-    "area" : area,
-    "unitTime": 15,
-    "schedule": '20190102',
-    'remarks':'あけおめことよろ',
-    "tasks": tasks.filter((task) => { return ( task.TodoID === todoID )})
-  })
-}
 
 
 </script>

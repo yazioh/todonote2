@@ -44,7 +44,6 @@
         <b-row>
           <b-col sm="8"><!-- 左側 -->
 
-
             <ul id="doingTask" class="taskList"><!-- 未達成タスク -->
               <li v-for="task in doingTasks" :key="task.id">
                 <b-form-row>
@@ -185,11 +184,14 @@ console.log("test ID",U.newID())
  
 const WEEK_MAX = 5 * 8 * 60 // min 
 export default {
-  
   mixins:[Areas],
-  props:{
 
+  props:{
+    conf:{}, // App.Comfs
+    // 
+    editTodo:{}
   },
+
   computed:{
     // @return num (単位:分) 
     totalEstimateTime:function(){
@@ -209,7 +211,6 @@ export default {
     },
 
     nowAreaIcon:function(){
-      console.log(this.edit.area)
       return this.areaIconName(this.edit.area)
     },
 
@@ -224,18 +225,23 @@ export default {
       })
     },
   },
+
   data:function(){
     return {
-      edit:{
-        area : 'a1',
-        title: '',
-        unitTime: 15,
-        tasks:[],
-        newTaskLabel:'',
-      },
+      edit:{},
+      // edit:{
+      //   id: '',
+      //   area : 'a1',
+      //   title: '',
+      //   unitTime: 15,
+      //   tasks:[],
+      //   newTaskLabel:'',
+      // },
+
       unitTimes: [
         5,6,10,15,20,30,45,60
       ],
+
       weeks:[
         {label: '今週',   start:'2019/01/01', task:1600, done:840 },
         {label: '来週',   start:'2019/01/01', task:360, done:20 },
@@ -245,13 +251,24 @@ export default {
       ]
     }
   },
+
   methods:{
     show:function(){
-      this.$refs.modal.show()
+      console.log(this.editTodo)
+
+      this.$nextTick(()=>{
+        console.log(this.editTodo)
+        this.edit = Object.assign({}, this.editTodo)         
+        // = this.editTodo.id
+        // this.edit.area = this.editTodo.area
+        // this.edit.title = this.editTodo.title
+        // this.edit.unitTime = this.editTodo.unitTime
+
+        this.$refs.modal.show()
+      })
     },
     hide: function(){
       this.$refs.modal.hide()
-
     },
 
     fuzzyTime: function(t){
@@ -273,12 +290,14 @@ export default {
       this.edit.area = area.name // a1 .. a4
     },
     
+    // to App 
     saveTodo: function(){
       this.$emit("update",{
         from:"edit",
         payload: this.edit
       })
     },
+
     taskVariant: function(week){
       return (week.task >= WEEK_MAX )? 'danger' : 'info'
     },
@@ -288,7 +307,6 @@ export default {
       console.log(task, checkd)
       //this.$forceUpdate()
     },
-
 
     onBlurNewTask:function(text, $e){
       console.log(text,$e)
@@ -306,8 +324,9 @@ export default {
       'tempYYYYMMDD'+(uu++)
     },
   },
-
+  
   created: function(){
+    console.log("editor view created ")
     // dmy data
     this.edit.tasks=[
         {id:"001",label:'aaaaaaaa', status:'_', edit:false},
@@ -318,7 +337,12 @@ export default {
         {id:"101",label:'aaaaaaaa', status:'v', edit:false},
         {id:"102",label:'aaaa', status:'v', edit:false},
     ]
-  }
+  },
+
+  mounted:function(){
+    console.log("editor view mounted ")
+  },
+
 }
 let uu = 100
 </script>

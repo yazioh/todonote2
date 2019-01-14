@@ -18,9 +18,29 @@ export default class TODO {
     this.unitTime = json.unitTime || 15
     this.schedule = json.schedule || ''
     this.remarks = json.remarks || ''
+    this.status = json.status || STATUS_OK,   
+    this.regdt = json.regdt || new Date()
+    this.updt = json.updt || new Date()
+
     this.tasks = json.tasks || [new TASK({TodoID: this.id})]
-    this.status = json.status || STATUS_OK
+    this.tags = json.tags || []
   }
+
+  // saveする際　重複部分はいらない
+  toJson (){
+    return {
+      id    : this.id     || '',
+      title: this.title || '',
+      area : this.area  || '',
+      unitTime : this.unitTime  || '',
+      schedule : this.schedule  || '',
+      remarks : this.remarks  || '',
+      status: this.status || '',
+      regdt : this.regdt  || '',
+      updt  : this.updt   || '', 
+    }
+  }
+
 
   newID () {
     let d = new Date()

@@ -25,13 +25,16 @@ export default {
 
   methods:{
     areaLabel:function(name){
-      return AREAs[name].title
+      return AREAs[name] ? AREAs[name].title : ''
     },
     areaIconName:function(name){
-      return AREAs[name].icon
+      return AREAs[name] ? AREAs[name].icon : ''
     },
     areaColor:function(name){
-      return AREAs[name].color
+      if(!AREAs[name]){
+        console.log("no color ", name)
+      }
+      return (AREAs[name])? AREAs[name].color : ''
     },
   },
 }

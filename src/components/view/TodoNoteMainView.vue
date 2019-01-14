@@ -2,19 +2,19 @@
   <div class="wapper">
     <b-form-row class="task-area task-hurry">
       <b-col md="6" lg="8" >
-        <TodoArea type="a1" :todo="tasksA1" @update="onUpdate"/>
+        <TodoArea type="a1" :todo="tasksA1" @update="onUpdate" @edit="onEdit" />
       </b-col>
       <b-col md="6" lg="4">
-        <TodoArea type="a2" :todo="tasksA2" @update="onUpdate"/>
+        <TodoArea type="a2" :todo="tasksA2" @update="onUpdate" @edit="onEdit" />
       </b-col>
     </b-form-row>
 
     <b-form-row class="task-area task-slow">
       <b-col md="6" lg="8">
-        <TodoArea type="a3" :todo="tasksA3" @update="onUpdate"/>
+        <TodoArea type="a3" :todo="tasksA3" @update="onUpdate" @edit="onEdit" />
       </b-col>
       <b-col md="6" lg="4">
-        <TodoArea type="a4" :todo="tasksA4" @update="onUpdate"/>
+        <TodoArea type="a4" :todo="tasksA4" @update="onUpdate" @edit="onEdit" />
       </b-col>
     </b-form-row>
   </div>
@@ -59,6 +59,9 @@ export default {
       this.$emit("update",payload)
     },
 
+    onEdit: function (todo){
+      this.$emit("edit", todo)
+    }
   },
   created:function(){
     
