@@ -1,16 +1,17 @@
 <template>
   <div :class="styles">
     <b-form-row class="header">
-      <b-col sm="9"><iconFont :name="areaIcon"/> {{ areaTitle }}</b-col>
-      <b-col sm="3">
+      <b-col cols="9"><iconFont :name="areaIcon"/> {{ areaTitle }}</b-col>
+      <b-col cols="3">
           <b-btn 
             size="sm"
             variant="light" 
             class="float-right"
             @click="toggleView"
           >
-              <iconFont :name="sumModeIcon"/>
+              <iconFont :name="sumModeIcon" :type="sumModeType"/> 
           </b-btn>
+          
           {{ summary }}
       </b-col>
     </b-form-row>
@@ -46,6 +47,9 @@ export default {
     },
     sumModeIcon: function(){
       return SUM_MODE[this.sumMode].icon
+    },
+    sumModeType: function(){
+      return SUM_MODE[this.sumMode].typ
     },
     styles:function(){
       let s =[

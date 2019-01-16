@@ -6,9 +6,9 @@
  */
 
 // DATA
-import TODO from '../../classes/TODO.js'
-import TASK from '../../classes/TASK.js'
-import TAG from '../../classes/TAG.js'
+import Todo from '../../classes/Todo.js'
+import Task from '../../classes/Task.js'
+import Tag from '../../classes/Tag.js'
 
 // DBはlocalStorage
 import Store from '../../classes/Store.js'
@@ -50,11 +50,12 @@ export default {
 
     },
     //----------------------------
-    // 外部からデータ操作できていいか再考
+    // TODO 外部からデータ操作できていいか再考
     methods: {
         confSave:function(){
             DbConf.save(CONFs)
         },
+
         dataSave:function(){
             DbTasks.save(this.TASKs.map((task) => {
                 return task.toJson()
@@ -122,7 +123,7 @@ export default {
         },
 
         dataNewTodo(){
-            return new TODO({
+            return new Todo({
                 id: this._dataNextTodoID()
             })
 
@@ -161,7 +162,7 @@ export default {
 
         _task: function (label, stat, no){
             let fakeID = 'D'+(CONFs.lastTodoID + no) 
-            return new TASK({
+            return new Task({
                 id: this._dataNextTaskID(),
                 TodoID: fakeID ,
                 label: label || '(no label)',
@@ -171,7 +172,7 @@ export default {
         
         _todo: function(title, area ){
             let todoId = this._dataNextTodoID()        
-            return new TODO({
+            return new Todo({
                 "id": todoId,
                 "title": title,
                 "area" : area,
