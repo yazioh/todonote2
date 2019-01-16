@@ -13,17 +13,17 @@
     >
         <div slot="modal-header" style="width:100%" >
           <b-form-row >
-            <b-col sm="1"><!-- 付箋色選択 -->
+            <b-col md="1" cols="2"><!-- 付箋色選択 -->
               <b-btn id="areaSelect" variant="light" @click="showAreaSelect" >
                 <iconFont :name="nowAreaIcon" />
              </b-btn>
             </b-col>
 
-            <b-col sm="7"><!-- タイトル変更 -->
+            <b-col md="7" cols="10"><!-- タイトル変更 -->
               <b-input v-model.trim="edit.title" placeHolder="サマリ・概要" />
             </b-col>
 
-            <b-col sm="3"><!-- 単位時間選択 -->
+            <b-col md="3" cols="6"><!-- 単位時間選択 -->
               <b-input-group prepend="1U" append="min">
                 <b-select :options="unitTimes" 
                   v-model="edit.unitTime" 
@@ -32,17 +32,17 @@
               </b-input-group>
             </b-col>
             
-            <b-col sm="1" class="text-right">
+            <!-- <b-col cols="1" class="text-right">
               <b-btn size="sm" variant="light" 
                  @click="hide" >
                 <iconFont name="times" />
              </b-btn>
-            </b-col>
+            </b-col> -->
           </b-form-row>
         </div>
 
         <b-row>
-          <b-col sm="8"><!-- 左側 -->
+          <b-col md="8"><!-- 左側 -->
 
             <ul id="doingTask" class="taskList"><!-- 未達成タスク -->
               <li v-for="task in doingTasks" :key="task.id">
@@ -109,7 +109,7 @@
             </ul>
 
           </b-col><!-- /左側 -->
-          <b-col> <!-- 右側 -->
+          <b-col md="4"> <!-- 右側 -->
 
             <b-form-row>
               <b-col sm="6" >作業見積り</b-col>
@@ -229,14 +229,6 @@ export default {
   data:function(){
     return {
       edit:{},
-      // edit:{
-      //   id: '',
-      //   area : 'a1',
-      //   title: '',
-      //   unitTime: 15,
-      //   tasks:[],
-      //   newTaskLabel:'',
-      // },
 
       unitTimes: [
         5,6,10,15,20,30,45,60
