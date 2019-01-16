@@ -8,15 +8,10 @@ const STATUS_DELETE = 'x'
  * TAG Project や MileStone として期限設定やグルーピングに使う
  *  
  */
- 
-export default class Tag {
+ export default class TagRef {
     constructor (json = {}){
-        this.id = json.id || this.newID()
-        this.title = json.title || 'any tag'
-        this.expire = json.expire || ''
+        this.todoID = json.todoID || ''
+        this.tagID = json.tagID || ''
         this.status = json.status || STATUS_OK
-
-        this.regdt = json.regdt || new Date()
-        this.updt = json.updt || new Date()
     }
 }

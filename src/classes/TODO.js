@@ -10,7 +10,7 @@ const STATUS_DELETE = 'x'
 /**
  * TODO やることヘッダー
  */
-export default class TODO {
+export default class Todo {
   constructor (json = {}) {
     this.id = json.id || this.newID()
     this.title = json.title || 'any todo'
@@ -22,7 +22,7 @@ export default class TODO {
     this.regdt = json.regdt || new Date()
     this.updt = json.updt || new Date()
 
-    this.tasks = json.tasks || [new TASK({TodoID: this.id})]
+    this.tasks = json.tasks || [new Task({TodoID: this.id})]
     this.tags = json.tags || []
   }
 

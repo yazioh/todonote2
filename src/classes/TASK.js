@@ -8,7 +8,7 @@ const STATUS_DELETE = 'x'
 /**
  * ブレイクダウンされたタスク
  */
-export default class TASK {
+export default class Task {
 
   constructor (json = {}) {
     this.id = json.id || this.newID()
