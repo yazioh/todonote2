@@ -1,5 +1,5 @@
 // 依存関係
-import TASK from './TASK.js'
+import Task from './Task.js'
 
 /**
  * ステータス判定用
@@ -12,8 +12,8 @@ const STATUS_DELETE = 'x'
  */
 export default class Todo {
   constructor (json = {}) {
-    this.id = json.id || this.newID()
-    this.title = json.title || 'any todo'
+    this.id = json.id || ''
+    this.title = json.title || 'any to do'
     this.area = json.area || 'a4'
     this.unitTime = json.unitTime || 15
     this.schedule = json.schedule || ''
@@ -22,7 +22,10 @@ export default class Todo {
     this.regdt = json.regdt || new Date()
     this.updt = json.updt || new Date()
 
-    this.tasks = json.tasks || [new Task({TodoID: this.id})]
+    this.tasks = json.tasks || [new Task({
+      TodoID: this.id, 
+      label: 'some work'
+    })]
     this.tags = json.tags || []
   }
 
@@ -41,14 +44,6 @@ export default class Todo {
     }
   }
 
-
-  newID () {
-    let d = new Date()
-    return 'D' +
-     ('' + d.getFullYear()).substr(-2) +
-     ('00' + (1 + d.getMonth())).substr(-2) +
-     ('00' + d.getDate()).substr(-2)
-  }
 
   isDelete () {
     return (this.status === STATUS_DELETE)

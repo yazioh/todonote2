@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid todo-view">
+    <div class="container-fluid screen">
         <slot  v-if="show" />
     </div>
 </template>
@@ -15,7 +15,7 @@ export default {
 </script>
 
 <style scoped>
-.todo-view {
+.screen {
     margin: 0;
     position: relative;
     width:100%; 

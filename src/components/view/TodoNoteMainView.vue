@@ -22,14 +22,14 @@
 <script>
 
 import TodoArea from '../elements/TodoArea'
-import Query from '../mixin/Query'
+import query from '../mixin/query'
 
 export default {
 
   components:{
     TodoArea
   },
-  mixins:[Query],
+  mixins:[query],
   props:{
     "TODOs":{}
   },

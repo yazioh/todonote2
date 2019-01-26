@@ -1,6 +1,6 @@
 <script>
 /**
- * Appの Data 操作に関するロジックを分離した
+ * Appの data 操作に関するロジックを分離した
  * 
  * 
  */
@@ -20,14 +20,15 @@ const DbTags = new Store('TAG')
 const DbTagRefs = new Store('TAG_REF')
 let CONFs = {}
 
+
+
+
 export default {
     template: `<!-- no template -->`,
-
     data: function(){
         return {
             dataConfig:{
                 week_max_min: 5 * 8 * 60 // min 
-
             },
             TODOs : {},
             TASKs : {},
@@ -47,24 +48,11 @@ export default {
             // read only
             return CONFs.originWeekday
         },
-
     },
     //----------------------------
-    // TODO 外部からデータ操作できていいか再考
     methods: {
         confSave:function(){
             DbConf.save(CONFs)
-        },
-
-        dataSave:function(){
-            DbTasks.save(this.TASKs.map((task) => {
-                return task.toJson()
-            }))
-            DbTodos.save(this.TODOs.map((task) => {
-                return task.toJson()
-            }))
-            DbTags.save(this.TAGs)
-            DbTags.save(this.TAGREFs)
         },
 
         confLoad:function(){
@@ -76,6 +64,17 @@ export default {
             CONFs.originWeekday = 1 // 月曜日にしたい
             // 更新を記録
             this.confSave()
+        },
+
+        dataSave:function(){
+            DbTasks.save(this.TASKs.map((task) => {
+                return task.toJson()
+            }))
+            DbTodos.save(this.TODOs.map((task) => {
+                return task.toJson()
+            }))
+            DbTags.save(this.TAGs)
+            DbTags.save(this.TAGREFs)
         },
 
         dataLoad:function(){
@@ -126,7 +125,6 @@ export default {
             return new Todo({
                 id: this._dataNextTodoID()
             })
-
         },
 
         dataUpdateEdit: function( json ){
@@ -188,12 +186,12 @@ export default {
     },
 
     created:function(){
-        console.log("created Data")
+        console.log("created data")
         this.confLoad()
         this.dataLoad()
     }, 
     mounted: function(){
-        console.log("mounted Data")
+        console.log("mounted data")
 
     }
 }

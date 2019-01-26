@@ -26,7 +26,7 @@
 </template>
 <script>
 import TodoNoteSticky from '../elements/TodoNoteSticky'
-import Areas from '../mixin/Areas'
+import areas from '../mixin/areas'
 
 const SUM_MODE = [
   { type:'sticky', 'icon':'sticky-note', type:'fas' },
@@ -36,7 +36,7 @@ const SUM_MODE = [
 ]
 
 export default {
-  mixins:[Areas],
+  mixins:[areas],
   components:{
     TodoNoteSticky
   },

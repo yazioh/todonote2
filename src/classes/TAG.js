@@ -3,13 +3,13 @@
  */
 const STATUS_OK = 'o'
 const STATUS_DELETE = 'x'
+const TODAY = new Date()
 
 /**
  * TAG Project や MileStone として期限設定やグルーピングに使う
  *  
  */
- 
-export default class Tag {
+ export default class Tag {
     constructor (json = {}){
         this.id = json.id || this.newID()
         this.title = json.title || 'any tag'
@@ -18,5 +18,15 @@ export default class Tag {
 
         this.regdt = json.regdt || new Date()
         this.updt = json.updt || new Date()
+    }
+
+    isActive(){
+        return (this.status !== STATUS_DELETE)
+    }
+    
+    // 期限切れ
+    isExpire() {
+        // TODO 
+        return false
     }
 }

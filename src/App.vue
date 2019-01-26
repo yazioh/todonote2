@@ -2,28 +2,33 @@
   <div id="app" :class="myClass">
     <b-row id="main" class="no-gutters h100" :style="mainHeight" >
       <b-col md="11" style="height:100%" >
+
         <!-- メインエリア（排他選択する） -->
-        <TodoNoteView ref="main" :show="true" :lotate="lotate" @show="viewActive">
-          <TodoNoteMainView :TODOs="QueryTODOs" @update="onUpdate" 
+        <MainScreen ref="main" 
+          :show="true" @show="viewActive"
+          :lotate="lotate" 
+        >
+            <TodoNoteMainView 
+              :TODOs="QueryTODOs" 
+              @update="onUpdate" 
               @edit="onEdit"
             />
-        </TodoNoteView>
+        </MainScreen>
 
         <!-- -->
-        <TodoNoteView ref="flat" :show="false" :lotate="lotate" @show="viewActive">
+        <MainScreen ref="flat" :show="false" :lotate="lotate" @show="viewActive">
           flat View 
-        </TodoNoteView>
+        </MainScreen>
         
         <!-- -->
-        <TodoNoteView ref="tag" :show="false" :lotate="lotate" @show="viewActive">
+        <MainScreen ref="tag" :show="false" :lotate="lotate" @show="viewActive">
           tag  View
-        </TodoNoteView>
+        </MainScreen>
         
         <!-- -->
-        <TodoNoteView ref="tag" :show="false" :lotate="lotate" @show="viewActive">
+        <MainScreen ref="tag" :show="false" :lotate="lotate" @show="viewActive">
           tag  View
-        </TodoNoteView>
-
+        </MainScreen>
 
       </b-col>
       <b-col md="1">
@@ -43,7 +48,7 @@
 <script>
 
 // vue controller
-import TodoNoteView from './components/TodoNoteView'
+import MainScreen from './components/util/mainScreen'
 import TodoNoteViewSelector from './components/mixin/TodoNoteViewSelector'
 
 // router 使ってないのでこちらで制御している
@@ -53,8 +58,8 @@ import TodoNoteEditView from './components/view/TodoNoteEditView'
 import TodoNoteSideBar from './components/view/TodoNoteSideBar'
 import TodoNoteFooter from './components/view/TodoNoteFooter'
 
-import Query from './components/mixin/Query'
-import Data from './components/mixin/Data'
+import query from './components/mixin/query'
+import data from './components/mixin/data'
 
 
 
@@ -75,9 +80,9 @@ const UI_BAR_WIDTH_L = 120;
 
 export default {
   name: 'App',
-  mixins:[Data, Query, TodoNoteViewSelector],
+  mixins:[data, query, TodoNoteViewSelector],
   components: {
-    TodoNoteView,
+    MainScreen,
     TodoNoteSideBar,
     TodoNoteFooter,
     TodoNoteMainView,

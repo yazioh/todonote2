@@ -175,16 +175,20 @@
 </template>
 <script>
 //------------------------------------------
-import Areas from '../mixin/Areas'
+import areas from '../mixin/areas'
+import calDate from '../mixin/calDate'
 // DATA
-import TODO from '../../classes/TODO.js'
-let U = new TODO()
-//import TASK from './components/classes/TASK.js'
-console.log("test ID",U.newID())
- 
+// import Todo from '../../classes/Todo.js'
+// import Task from '../../classes/Task.js'
+
 const WEEK_MAX = 5 * 8 * 60 // min 
+const UNIT_TIME_OPTIONS =[
+  5,6,10,15,20,30,45,60
+]
+
+
 export default {
-  mixins:[Areas],
+  mixins:[areas,calDate],
 
   props:{
     conf:{}, // App.Comfs
@@ -230,9 +234,7 @@ export default {
     return {
       edit:{},
 
-      unitTimes: [
-        5,6,10,15,20,30,45,60
-      ],
+      unitTimes: UNIT_TIME_OPTIONS,
 
       weeks:[
         {label: '今週',   start:'2019/01/01', task:1600, done:840 },
@@ -250,7 +252,7 @@ export default {
 
       this.$nextTick(()=>{
         console.log(this.editTodo)
-        this.edit = Object.assign({}, this.editTodo)         
+        this.edit = Object.assign({}, this.editTodo)
         // = this.editTodo.id
         // this.edit.area = this.editTodo.area
         // this.edit.title = this.editTodo.title
