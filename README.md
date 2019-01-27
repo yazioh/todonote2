@@ -2,6 +2,13 @@
 
 > A Vue.js project
 
+- とどのて Vue.js で作り直し版
+- 勉強かねて class とかも使ってみる
+- BootstrapVue の範囲内のみ jQuery 併用
+- store は相変わらず localStorage のみ
+
+
+
 ## Build Setup
 
 ``` bash

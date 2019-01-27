@@ -37,20 +37,20 @@ export default {
     /**
      * タスクエリアで絞り込み
      */
-    queryTasksArea:function(TODOs , area){
+    queryTodosInArea:function(TODOs , area){
       return TODOs.filter((todo)=>{
           return(todo.area ==area)
       })
     },
     
-    queryScheduleToday:function(TODOs){
+    queryTodosScheduleToday:function(TODOs){
       let today = this.Ymd()
       return TODOs.filter((todo)=>{
         return(todo.schedule === today)
       })
     },
 
-    queryNotScheduled:function(TODOs){
+    queryTodosNotScheduled:function(TODOs){
       // let today = this.Ymd()
       return TODOs.filter((todo)=>{
         return(todo.schedule === '')

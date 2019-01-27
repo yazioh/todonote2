@@ -36,16 +36,16 @@ export default {
   computed: {
 
     tasksA1:function(){
-      return this.queryTasksArea(this.TODOs, 'a1')
+      return this.queryTodosInArea(this.TODOs, 'a1')
     },
     tasksA2:function(){
-      return this.queryTasksArea(this.TODOs, 'a2')
+      return this.queryTodosInArea(this.TODOs, 'a2')
     },
     tasksA3:function(){
-      return this.queryTasksArea(this.TODOs, 'a3')
+      return this.queryTodosInArea(this.TODOs, 'a3')
     },
     tasksA4:function(){
-      return this.queryTasksArea(this.TODOs, 'a4')
+      return this.queryTodosInArea(this.TODOs, 'a4')
     },
 
   },

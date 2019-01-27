@@ -28,7 +28,7 @@ export default class Todo {
     this.tags = json.tags || []
   }
 
-  // saveする際 重複部分はいらない
+  // saveする際 重複部分はいらないので削る
   toJson () {
     return {
       id: this.id || '',

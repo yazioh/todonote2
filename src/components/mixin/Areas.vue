@@ -1,4 +1,12 @@
 <script>
+/**
+ * 4象限表示の色と意味を統一する
+ * 
+ */
+
+/**
+ * Area class ..TODO class化検討
+ */
 function _area(name, color, title, iconName) {
   return {
     "name": name,
@@ -27,15 +35,18 @@ export default {
     areaLabel:function(name){
       return AREAs[name] ? AREAs[name].title : ''
     },
+
     areaIconName:function(name){
       return AREAs[name] ? AREAs[name].icon : ''
     },
+
     areaColor:function(name){
       if(!AREAs[name]){
         console.log("no color ", name)
       }
       return (AREAs[name])? AREAs[name].color : ''
-    },
-  },
+    }
+
+  }
 }
 </script>
