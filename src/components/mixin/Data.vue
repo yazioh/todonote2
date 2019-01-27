@@ -2,26 +2,26 @@
 /**
  * Appの data 操作に関するロジックを分離した
  * 
- * 
  */
 
 // DATA
 import Todo from '../../classes/Todo.js'
 import Task from '../../classes/Task.js'
 import Tag from '../../classes/Tag.js'
+import TagRef from '../../classes/TagRef.js'
 
 // DBはlocalStorage
 import Store from '../../classes/Store.js'
+import DataStore from '../../classes/DataStore.js'
 // LocalStorage の キー
 const DbConf = new Store('CONFIG')
-const DbTodos = new Store('TODO')
-const DbTasks = new Store('TASK')
-const DbTags = new Store('TAG')
-const DbTagRefs = new Store('TAG_REF')
+const DbTodos = new DataStore('TODO',Todo)
+const DbTasks = new DataStore('TASK',Task)
+const DbTags = new DataStore('TAG',Tag)
+const DbTagRefs = new DataStore('TAGREF',TagRef)
+
 let CONFs = {}
-
-
-
+let lastTodoId = 0
 
 export default {
     template: `<!-- no template -->`,
@@ -30,10 +30,10 @@ export default {
             dataConfig:{
                 week_max_min: 5 * 8 * 60 // min 
             },
-            TODOs : {},
-            TASKs : {},
-            TAGs : {},
-            TAGREFs:{},
+            TODOs : [],
+            TASKs : [],
+            TAGs : [],
+            TAGREFs: [],
             // ----------
             TodoId : '',
             TaskId : '',
@@ -56,30 +56,100 @@ export default {
         },
 
         confLoad:function(){
-            let load  = DbConf.load()
+            DbConf.load()
+            let load  = DbConf.get()
             CONFs.lastView = load.lastView || 'main'
-            CONFs.lastTodoID = load.lastTodoID || 1000
-            CONFs.lastTaskID = load.lastTaskID || 1000
-            CONFs.lassTagID = load.lassTagID || 1000
             CONFs.originWeekday = 1 // 月曜日にしたい
             // 更新を記録
             this.confSave()
         },
 
         dataSave:function(){
-            DbTasks.save(this.TASKs.map((task) => {
-                return task.toJson()
-            }))
-            DbTodos.save(this.TODOs.map((task) => {
-                return task.toJson()
-            }))
-            DbTags.save(this.TAGs)
-            DbTags.save(this.TAGREFs)
+            DbTasks.save()
+            DbTodos.save()
+            DbTags.save()
+            DbTagRefs.save()
         },
 
         dataLoad:function(){
-            let tasks = []// DbTasks.load()
-            this.TASKs =(tasks.length) ? tasks : [
+            this.TODOs = DbTodos.load()
+            this.TASKs = DbTasks.load()
+            this.TAGs = DbTags.load()
+            this.TAGREFs = DbTagRefs.load()
+
+            // this._setDumyTask()
+            if(this.TODOs.length){
+              this.TODOs.forEach(theTodo => {
+                theTodo.setTasks(this.findTasksInTodo(theTodo.id))
+                theTodo.setTags(this.findTagsInTodo(theTodo.id))
+              });
+            }
+            // console.log(this.TODOs)
+            this.dataSave()
+        },
+
+        /**
+         * @return Array[Task]
+         */
+        findTasksInTodo( id ){
+          // console.log(this.TASKs)
+          return this.TASKs.filter((theTask)=>{
+            return (theTask.todoId === id && !theTask.isDelete())
+          })
+        },
+
+        /**
+         * @return Array[Tag]
+         */
+        findTagsInTodo( id ){
+          let refs = this.TAGREFs.filter((theTask) => {
+            return (theTask.todoId === id && !theTask.isDelete())
+          })
+          return refs.map((theTagRef) => {
+            return this.DbTags.getById(theTagRef.TagId)
+          })
+        },
+
+        dataNewTodo(){
+            return new Todo({
+                id: this._dataNextTodoId()
+            })
+        },
+
+        dataUpdateEdit: function( json ){
+            console.log(json)
+            let theTodo = this.TODOs.find((todo)=>{
+                 return (todo.id === json.id)
+            })
+            if(!theTodo){
+                this.TODOs.push(json)
+            }else{
+                theTodo = Object.assign(theTodo, json)
+            }
+            this.dataSave()
+        },
+
+        _dataNextTaskId: function(){
+            CONFs.lastTaskId ++
+            this.confSave()
+            return 'K'+CONFs.lastTaskId
+        },
+
+        _dataNextTodoId: function(){
+            lastTodoId++
+            return 'FD'+lastTodoId
+        },
+
+        _dataNextTagId: function(){
+            CONFs.lassTagId ++
+            this.confSave()
+            return 'G'+ CONFs.lassTagId 
+        },
+
+
+        _setDumyTask: function(){
+            DbTasks.clearAll()
+            this.TASKs = [
                 this._task("なんかかか","v", 1),
                 this._task("なんかかか","_", 1),
                 this._task("なんかかか","_", 1),
@@ -90,8 +160,8 @@ export default {
                 this._task("なんかかか","_", 6),
             ]
 
-            let todos = []//DbTodos.load()
-            this.TODOs = (todos.length) ? todos : [
+            DbTodos.clearAll()
+            this.TODOs = [
                 this._todo("hoge",'a1' ),
                 this._todo("hoge2",'a1'),
                 this._todo("hoge3",'a1'),
@@ -114,63 +184,20 @@ export default {
                 this._todo("hoge20",'a3'),
             ]
 
-            let tags = DbTags.load()
-            this.TAGs = (tags.length) ? tags : []
-
-            console.log(this.TODOs)
-            this.dataSave()
-        },
-
-        dataNewTodo(){
-            return new Todo({
-                id: this._dataNextTodoID()
-            })
-        },
-
-        dataUpdateEdit: function( json ){
-            console.log(json)
-            let theTodo = this.TODOs.find((todo)=>{
-                 return (todo.id === json.id)
-            })
-            if(!theTodo){
-                this.TODOs.push(json)
-            }else{
-                theTodo = Object.assign(theTodo, json)
-            }
-            this.dataSave()
-        },
-
-        _dataNextTaskID: function(){
-            CONFs.lastTaskID ++
-            this.confSave()
-            return 'K'+CONFs.lastTaskID
-        },
-
-        _dataNextTodoID: function(){
-            CONFs.lastTodoID ++
-            this.confSave()
-            return 'D'+CONFs.lastTodoID
-        },
-
-        _dataNextTagID: function(){
-            CONFs.lassTagID ++
-            this.confSave()
-            return 'G'+ CONFs.lassTagID 
-        },
-
+        } ,
         _task: function (label, stat, no){
-            let fakeID = 'D'+(CONFs.lastTodoID + no) 
-            return new Task({
-                id: this._dataNextTaskID(),
-                TodoID: fakeID ,
+            let fakeId = 'FD'+ no 
+            return DbTasks.add({
+                id: '',
+                todoId: fakeId ,
                 label: label || '(no label)',
                 status: stat || '_'
             })
         },
         
         _todo: function(title, area ){
-            let todoId = this._dataNextTodoID()        
-            return new Todo({
+            let todoId = this._dataNextTodoId()        
+            return DbTodos.add({
                 "id": todoId,
                 "title": title,
                 "area" : area,
@@ -178,11 +205,10 @@ export default {
                 "schedule": '20190102',
                 'remarks':'あけおめことよろ',
                 "tasks": this.TASKs.filter((task) => { 
-                    return ( task.TodoID === todoId )
+                    return ( task.todoId === todoId )
                 })
             })
         }
-
     },
 
     created:function(){

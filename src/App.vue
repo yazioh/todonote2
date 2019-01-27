@@ -36,7 +36,6 @@
         <TodoNoteSideBar :show="lotate=='landscape'" @edit="onEdit" :conf="dataConfig"/>
      </b-col>
     </b-row>
-
     <!-- Editor View -->
     <TodoNoteEditView ref="edit" 
       :conf="dataConfig"
@@ -49,7 +48,7 @@
 
 // vue controller
 import MainScreen from './components/util/mainScreen'
-import TodoNoteViewSelector from './components/mixin/TodoNoteViewSelector'
+import TodoNoteViewSelector from './components/mixin/ViewSelector'
 
 // router 使ってないのでこちらで制御している
 // Views
@@ -59,9 +58,9 @@ import TodoNoteSideBar from './components/view/TodoNoteSideBar'
 import TodoNoteFooter from './components/view/TodoNoteFooter'
 
 import query from './components/mixin/query'
+
+// accesser to Models 
 import data from './components/mixin/data'
-
-
 
 // 現在どのモードで表示しているか判定 
 // これは手動判定の必要がある
@@ -76,7 +75,6 @@ const BootStrapBreakPoint = {
 const UI_BAR_HEIGHT = 80;
 const UI_BAR_WIDTH_S = 60;
 const UI_BAR_WIDTH_L = 120;
-
 
 export default {
   name: 'App',

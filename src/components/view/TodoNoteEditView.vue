@@ -305,7 +305,7 @@ export default {
     onBlurNewTask:function(text, $e){
       console.log(text,$e)
       if(text){
-        this.edit.tasks.push({id:this.getNewTaskID(), label:''+ text, status:'_', edit:false})
+        this.edit.tasks.push({id:this.getNewTaskId(), label:''+ text, status:'_', edit:false})
       }
       this.edit.newTaskLabel=''
     },

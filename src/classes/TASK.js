@@ -11,31 +11,30 @@ const STATUS_DELETE = 'x'
 export default class Task {
 
   constructor (json = {}) {
-    this.id = json.id || this.newID()
-    this.TodoID = json.TodoID || ''
+    this.id = json.id || ''
+    this.todoId = json.todoId || ''
     this.label = json.label || 'any task'
     this.status = json.status || STATUS_YET
     this.regdt = json.regdt || new Date()
     this.updt = json.updt || new Date()    
   }
 
-  toJson (){
+  toJson () {
     return {
       id    : this.id     || '',
-      TodoID: this.TodoID || '',
+      todoId: this.todoId || '',
       label : this.label  || '',
       status: this.status || '',
       regdt : this.regdt  || '',
       updt  : this.updt   || '', 
     }
   }
-
-  newID () {
-    let d = new Date()
-    return 'S' +
-     ('' + d.getFullYear()).substr(-2) +
-     ('00' + (1 + d.getMonth())).substr(-2) +
-     ('00' + d.getDate()).substr(-2)
+  setId (serial, today) {
+    this.id = 'K' + serial
+    //  ('' + today.getFullYear()).substr(-2) +
+    //  ('00' + (1 + today.getMonth())).substr(-2) +
+    //  ('00' + today.getDate()).substr(-2)
+    return this.id
   }
 
   isDelete () {

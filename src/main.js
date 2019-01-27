@@ -1,10 +1,15 @@
-import Vue from 'vue'
+/**
+ * ToDo noTe v2 (for Vue.js)
+ * 2018-
+ */
+import Vue from 'vue';
+
 // *** Bootstrap ***
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
-// *** Font Awesome *** 
+// *** Font Awesome ***
 import '@fortawesome/fontawesome-free-webfonts/css/fontawesome.css'
 import '@fortawesome/fontawesome-free-webfonts/css/fa-brands.css'
 import '@fortawesome/fontawesome-free-webfonts/css/fa-regular.css'
@@ -13,11 +18,9 @@ import '@fortawesome/fontawesome-free-webfonts/css/fa-solid.css'
 // グローバルコンポーネントはこのへんで解決
 import iconFont from './components/util/icon-font.vue'
 import inputGroupLabel from './components/util/inputGroupLabel.vue'
-console.log(inputGroupLabel)
-
-
 // アプリ ルート
 import App from './App'
+
 
 Vue.use(BootstrapVue)
 

@@ -18,32 +18,60 @@ export default class Todo {
     this.unitTime = json.unitTime || 15
     this.schedule = json.schedule || ''
     this.remarks = json.remarks || ''
-    this.status = json.status || STATUS_OK,   
+    this.status = json.status || STATUS_OK
     this.regdt = json.regdt || new Date()
     this.updt = json.updt || new Date()
-
     this.tasks = json.tasks || [new Task({
-      TodoID: this.id, 
+      TodoID: this.id,
       label: 'some work'
     })]
     this.tags = json.tags || []
   }
 
-  // saveする際　重複部分はいらない
-  toJson (){
+  // saveする際 重複部分はいらない
+  toJson () {
     return {
-      id    : this.id     || '',
+      id: this.id || '',
       title: this.title || '',
-      area : this.area  || '',
-      unitTime : this.unitTime  || '',
-      schedule : this.schedule  || '',
-      remarks : this.remarks  || '',
+      area: this.area || '',
+      unitTime: this.unitTime || '',
+      schedule: this.schedule || '',
+      remarks: this.remarks || '',
       status: this.status || '',
-      regdt : this.regdt  || '',
-      updt  : this.updt   || '', 
+      regdt: this.regdt || '',
+      updt: this.updt || ''
     }
   }
 
+  setId (serial, today) {
+    this.id = 'D' + serial
+    //  ('' + today.getFullYear()).substr(-2) +
+    //  ('00' + (1 + today.getMonth())).substr(-2) +
+    //  ('00' + today.getDate()).substr(-2)
+    this.refreshId(this.id)
+    return this.id
+  }
+
+  setTasks (ary) {
+    this.tasks = ary || []
+  }
+
+  setTags (ary) {
+    this.tags = ary || []
+  }
+
+  refreshId (newId) {
+    if (this.tasks.length) {
+      this.tasks.forEach((Task) => {
+        Task.todoId = newId
+      })
+    }
+    if (this.tags.length) {
+      this.tags.forEach((TagRef) => {
+        TagRef.todoId = newId
+      })
+    }
+  }
 
   isDelete () {
     return (this.status === STATUS_DELETE)
