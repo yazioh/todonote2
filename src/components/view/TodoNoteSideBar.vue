@@ -1,6 +1,8 @@
 <template>
     <div class="todo-view" id="sidebar" style="stylePrpos">
+        <b-btn ref="btnDrawer" @click="onBtnDrawerClick">＠</b-btn>
         <div class="content">
+            
           <b-form-row>
             <b-col cols="3" md="12">
                 <b-form-row>
@@ -77,9 +79,12 @@ export default {
         SideBarTagQuery
     },
     props:{
-        show:{
-            default: false
+        state:{
+            default: {
+
+            }
         },
+
         currentCond:{}
     },
 
@@ -94,6 +99,9 @@ export default {
     },
 
     methods:{
+        onBtnDrawerClick: function(){
+            this.$emit("state", {open: !this.state.open})
+        },
         shoeViews: function() {
 
         },

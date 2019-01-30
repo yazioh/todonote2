@@ -27,6 +27,10 @@ export default {
   template: `<!-- no template -->`,
   data: function(){
       return {
+          // app全体のconfig 
+          dataConfig: {
+
+          },
           TODOs : [],
           TASKs : [],
           TAGs : [],

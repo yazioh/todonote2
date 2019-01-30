@@ -1,5 +1,5 @@
 <template>
-  <div id="app" :class="myClass">
+  <div id="app" :class="appClass">
     <b-row id="main" class="no-gutters h100" :style="mainHeight" >
       <b-col md="11" style="height:100%" >
 
@@ -33,7 +33,11 @@
       </b-col>
       <b-col md="1">
         <!-- クエリーコントロールPC -->
-        <TodoNoteSideBar :show="lotate=='landscape'" @edit="onEdit" :conf="dataConfig"/>
+        <TodoNoteSideBar 
+          :state="appSideBarState" 
+          :conf="dataConfig"
+          @state="onUpdateSidebarState"
+          @edit="onEdit" />
      </b-col>
     </b-row>
     <!-- Editor View -->
@@ -89,10 +93,11 @@ export default {
   props:{
   },
   computed:{
-    myClass: function(){
+    appClass: function(){
       return [
         'screen-'+this.size,
         'screen-'+this.lotate,
+        'side-bar-'+ (this.appSideBarState.open ? 'open':'close')
       ]
     },
     QueryTODOs : function(){
@@ -117,6 +122,11 @@ export default {
         editor: false
       },
 
+      appSideBarState:{
+        show: true,
+        open: false,
+      },
+
       // for 編集 View
       EditTodo:{},
     }
@@ -129,6 +139,12 @@ export default {
     onUpdate: function( payload ){
       // 
       this.$forceUpdate()
+    },
+
+    onUpdateSidebarState: function (payload) {
+      // console.log(2,payload)
+      // TODO サニタイズとか
+      Object.assign(this.appSideBarState, payload)
     },
 
     /**
