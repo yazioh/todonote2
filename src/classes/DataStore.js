@@ -4,8 +4,9 @@
 /**
  * Store
  * localStorageのキーと 1:1 で接続して R/W する
- *
- */
+ * 
+ * TODO 将来外部ストレージに移行するまでに、アクセスを Promise でつなぐ方式に
+ **/
 import Store from './Store.js'
 
 /**

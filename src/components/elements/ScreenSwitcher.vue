@@ -1,9 +1,13 @@
 <template>
-    <div class="container-fluid screen">
-        <slot  v-if="show" />
+    <div class="screen">
+        <div class="main">
+            <slot />
+        </div>
+        <div class="menuBar">
+            <slot name="menuBar" />
+        </div>
     </div>
 </template>
-<script>
 export default {
     props:{
         lotate:{},
