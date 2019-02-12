@@ -1,8 +1,8 @@
 <template>
   <div id="app" :class="appClass">
     <b-row id="main" class="no-gutters h100" :style="mainHeight" >
-      <b-col md="11" style="height:100%" >
 
+      <b-col md="11" style="height:100%" >
         <!-- メインエリア（排他選択する） -->
         <MainScreen ref="main" 
           :show="true" @show="viewActive"
@@ -51,7 +51,7 @@
 <script>
 
 // vue controller
-import MainScreen from './components/util/mainScreen'
+import MainScreen from './components/elements/ScreenSwitcher'
 import TodoNoteViewSelector from './components/mixin/ViewSelector'
 
 // router 使ってないのでこちらで制御している
@@ -120,6 +120,15 @@ export default {
       windowHeight: '',
       view:{
         editor: false
+      },
+
+      appScreen: {
+        size: '',
+        lotate: '',
+        windowWidth: '',
+        windowHeight: '',
+        curView:'',
+        menuOpenFlg: false,
       },
 
       appSideBarState:{

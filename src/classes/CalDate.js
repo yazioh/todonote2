@@ -99,37 +99,37 @@ export default class CalDate extends Date {
 }
 
 // function is(test){
-// 	return (typeof test =='undefined'|| test==='' || test===false)? false: true;
+//   return (typeof test =='undefined'|| test==='' || test===false)? false: true;
 // }
 
 // Date.prototype.gengou_table = [{
-// 	date : new Date(1989, 1 - 1, 8),
-// 	alp : 'H',
-// 	knj : "蟷ｳ謌�"
+//   date : new Date(1989, 1 - 1, 8),
+//   alp : 'H',
+//   knj : "蟷ｳ謌�"
 // }, {
-// 	date : new Date(1926, 12 - 1, 25),
-// 	alp : 'S',
-// 	knj : "譏ｭ蜥�"
+//   date : new Date(1926, 12 - 1, 25),
+//   alp : 'S',
+//   knj : "譏ｭ蜥�"
 // }, {
-// 	date : new Date(1912, 7 - 1, 30),
-// 	alp : 'T',
-// 	knj : "螟ｧ豁｣"
+//   date : new Date(1912, 7 - 1, 30),
+//   alp : 'T',
+//   knj : "螟ｧ豁｣"
 // }, {
-// 	date : new Date(1868, 9 - 1, 8),
-// 	alp : 'M',
-// 	knj : "譏取ｲｻ"
+//   date : new Date(1868, 9 - 1, 8),
+//   alp : 'M',
+//   knj : "譏取ｲｻ"
 // }];
 // Date.prototype.getGengoY = function(chk) {
-// 	var ret = '';
-// 	$(this.gengou_table).each(function(i, dt) {
+//   var ret = '';
+//   $(this.gengou_table).each(function(i, dt) {
 
-// 		if (chk.getTime() >= dt.date.getTime()) {
-// 			yy = chk.getFullYear() - dt.date.getFullYear() + 1;
-// 			ret = dt.alp + yy;
-// 			return false;
-// 		}
-// 	});
-// 	return (ret) ? ret : chk.getFullYear();
+//     if (chk.getTime() >= dt.date.getTime()) {
+//       yy = chk.getFullYear() - dt.date.getFullYear() + 1;
+//       ret = dt.alp + yy;
+//       return false;
+//     }
+//   });
+//   return (ret) ? ret : chk.getFullYear();
 // };
 
 // ----------------------------
