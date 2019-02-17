@@ -1,5 +1,5 @@
 <template>
-    <div class="screen">
+    <div class="screen" v-if="show">
         <div class="main">
             <slot />
         </div>
@@ -8,6 +8,7 @@
         </div>
     </div>
 </template>
+<script>
 export default {
     props:{
         lotate:{},
@@ -17,7 +18,6 @@ export default {
     }
 }
 </script>
-
 <style scoped>
 .screen {
     margin: 0;

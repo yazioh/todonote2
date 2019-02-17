@@ -5,7 +5,7 @@
       <b-col md="11" style="height:100%" >
         <!-- メインエリア（排他選択する） -->
         <MainScreen ref="main" 
-          :show="true" @show="viewActive"
+          :show="false" @show="viewActive"
           :lotate="lotate" 
         >
             <TodoNoteMainView 
@@ -29,6 +29,11 @@
         <MainScreen ref="tag" :show="false" :lotate="lotate" @show="viewActive">
           tag  View
         </MainScreen>
+
+        <MainScreen ref="tag" :show="true" :lotate="lotate" @show="viewActive">
+          <ComponentTest />
+        </MainScreen>
+
 
       </b-col>
       <b-col md="1">
@@ -60,6 +65,7 @@ import TodoNoteMainView from './components/view/TodoNoteMainView'
 import TodoNoteEditView from './components/view/TodoNoteEditView'
 import TodoNoteSideBar from './components/view/TodoNoteSideBar'
 import TodoNoteFooter from './components/view/TodoNoteFooter'
+import ComponentTest from './components/view/_ComponentTest'
 
 import query from './components/mixin/query'
 
@@ -85,6 +91,7 @@ export default {
   mixins:[data, query, TodoNoteViewSelector],
   components: {
     MainScreen,
+    ComponentTest,
     TodoNoteSideBar,
     TodoNoteFooter,
     TodoNoteMainView,
