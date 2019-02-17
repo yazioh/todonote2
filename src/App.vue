@@ -38,6 +38,11 @@
           calendar  View
         </TodoNoteScreen>
 
+        <MainScreen ref="tag" :show="true" :lotate="lotate" @show="viewActive">
+          <ComponentTest />
+        </MainScreen>
+
+
       </b-col>
       <b-col md="1">
         <!-- クエリーコントロールPC -->
@@ -68,6 +73,7 @@ import TodoNoteMainView from './components/view/TodoNoteMainView'
 import TodoNoteEditView from './components/view/TodoNoteEditView'
 import TodoNoteSideBar from './components/view/TodoNoteSideBar'
 import TodoNoteFooter from './components/view/TodoNoteFooter'
+import ComponentTest from './components/view/_ComponentTest'
 
 import query from './components/mixin/query'
 
@@ -93,6 +99,7 @@ export default {
   mixins:[data, query, TodoNoteViewSelector],
   components: {
     TodoNoteScreen,
+    ComponentTest,
     TodoNoteSideBar,
     TodoNoteFooter,
     TodoNoteMainView,

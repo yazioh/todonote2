@@ -341,7 +341,7 @@ export default {
 }
 let uu = 100
 </script>
-<style>
+<style scoped>
 
 .taskList{
   margin-top: 0.5rem;

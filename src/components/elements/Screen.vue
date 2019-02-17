@@ -3,6 +3,7 @@
       <slot />
     </div>
 </template>
+<script>
 export default {
     props:{
         lotate:{},
@@ -12,7 +13,6 @@ export default {
     }
 }
 </script>
-
 <style scoped>
 .screen {
     margin: 0;
