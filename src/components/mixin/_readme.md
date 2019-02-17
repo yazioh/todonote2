@@ -11,3 +11,6 @@
 
 
 
+　
+ - mixin/ViewSelector : App から画面表示切り替え機能を分離
+

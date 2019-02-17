@@ -21,13 +21,23 @@ export default {
     },
     data: function(){
         return {
-            hoge: 'hoge'
+            currentScreen:"main",
+            screens:{
+
+            },
         }
     },
     methods: {
-        viewActive:function(name,payload){
-            console.log(name, payload)
-        }
+        onScreenInit:function(name,payload){
+            this.screens[name]={
+              "name": name,
+              "open": (this.cuurentScreeen==name)
+            }
+            console.log(name)
+        },
+        selectScreen:function(screenName){
+
+        },
     },
     created: function(){
         // console.log("mixn", "view selector")

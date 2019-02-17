@@ -1,12 +1,13 @@
 <!--
   編集ダイアログ
 
---><template>
+-->
+<template>
   <div>
     <b-modal ref="modal" size="lg" 
       :ok-only="true"
       ok-title="保存" ok-variant="light" ok-size="sm"
-      @ok="saveTodo"
+      @ok="onOkClick"
       :header-class="nowAreaColor"      
       :body-class="nowAreaColor"      
       :footer-class="nowAreaColor"      
@@ -284,8 +285,8 @@ export default {
       this.edit.area = area.name // a1 .. a4
     },
     
-    // to App 
-    saveTodo: function(){
+    // Save Todo
+    onOkClick: function(){
       this.$emit("update",{
         from:"edit",
         payload: this.edit
