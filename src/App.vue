@@ -1,34 +1,42 @@
+<!--
+　覚書
+
+
+  TodoNoteScreen メイン画面を1ずつラップする 
+  TODO 　Switcher で切り替え機能提供
+-->
 <template>
   <div id="app" :class="appClass">
     <b-row id="main" class="no-gutters h100" :style="mainHeight" >
 
       <b-col md="11" style="height:100%" >
         <!-- メインエリア（排他選択する） -->
-        <MainScreen ref="main" 
-          :show="true" @show="viewActive"
-          :lotate="lotate" 
+        <TodoNoteScreen ref="main"
+          :show="true" 
+          :lotate="lotate"
+          @init="onScreenInit('main')"
         >
             <TodoNoteMainView 
               :TODOs="QueryTODOs" 
               @update="onUpdate" 
               @edit="onEdit"
             />
-        </MainScreen>
+        </TodoNoteScreen>
 
         <!-- -->
-        <MainScreen ref="flat" :show="false" :lotate="lotate" @show="viewActive">
+        <TodoNoteScreen ref="flat" :show="false" :lotate="lotate" @init="onScreenInit('flat')">
           flat View 
-        </MainScreen>
+        </TodoNoteScreen>
         
         <!-- -->
-        <MainScreen ref="tag" :show="false" :lotate="lotate" @show="viewActive">
+        <TodoNoteScreen ref="tag" :show="false" :lotate="lotate" @init="onScreenInit('tag')">
           tag  View
-        </MainScreen>
+        </TodoNoteScreen>
         
         <!-- -->
-        <MainScreen ref="tag" :show="false" :lotate="lotate" @show="viewActive">
-          tag  View
-        </MainScreen>
+        <TodoNoteScreen ref="calendar" :show="false" :lotate="lotate" @init="onScreenInit('main')">
+          calendar  View
+        </TodoNoteScreen>
 
       </b-col>
       <b-col md="1">
@@ -51,7 +59,7 @@
 <script>
 
 // vue controller
-import MainScreen from './components/elements/ScreenSwitcher'
+import TodoNoteScreen from './components/elements/Screen'
 import TodoNoteViewSelector from './components/mixin/ViewSelector'
 
 // router 使ってないのでこちらで制御している
@@ -84,7 +92,7 @@ export default {
   name: 'App',
   mixins:[data, query, TodoNoteViewSelector],
   components: {
-    MainScreen,
+    TodoNoteScreen,
     TodoNoteSideBar,
     TodoNoteFooter,
     TodoNoteMainView,
@@ -141,13 +149,14 @@ export default {
     }
   },
   methods:{
+
     /**
      * ビューコンポネントの更新ハンドラ
      * 画面描画切り替え 指示
      */
     onUpdate: function( payload ){
       // 
-      this.$forceUpdate()
+      //this.$forceUpdate()
     },
 
     onUpdateSidebarState: function (payload) {
@@ -169,6 +178,9 @@ export default {
 
     },
 
+    /**
+     * 編集開始イベント
+     */
     onEdit:function(todo){
       // seek 
       this.EditTodo = (todo) ? todo :this.dataNewTodo();
@@ -176,8 +188,10 @@ export default {
       this.$refs.edit.show()
     },
 
+    /**
+     * 編集完了イベント
+     */
     onEditorUpdate :function(data){
-      
       this.EditTodo = this.dataUpdateEdit(data.payload)
       this.view.editor = false;
     },

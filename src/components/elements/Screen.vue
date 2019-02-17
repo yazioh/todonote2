@@ -1,11 +1,6 @@
 <template>
     <div class="screen">
-        <div class="main">
-            <slot />
-        </div>
-        <div class="menuBar">
-            <slot name="menuBar" />
-        </div>
+      <slot />
     </div>
 </template>
 export default {
