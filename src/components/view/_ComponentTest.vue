@@ -5,6 +5,9 @@
 
         
         aa<InputLabel v-model="text1"/>aa
+
+
+        <ButtonToggle color="primary">aaa</ButtonToggle>
     </div>
 </template>
 <script>
