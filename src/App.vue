@@ -1,7 +1,6 @@
 <!--
 　覚書
 
-
   TodoNoteScreen メイン画面を1ずつラップする 
   TODO 　Switcher で切り替え機能提供
 -->
@@ -38,9 +37,9 @@
           calendar  View
         </TodoNoteScreen>
 
-        <MainScreen ref="tag" :show="true" :lotate="lotate" @show="viewActive">
+        <TodoNoteScreen ref="tag" :show="true" :lotate="lotate" @show="viewActive">
           <ComponentTest />
-        </MainScreen>
+        </TodoNoteScreen>
 
 
       </b-col>
@@ -124,11 +123,16 @@ export default {
 
     footerHeight: function(){
       return 'height:0';
+    },
+    viewActive: function (){
+      // テストコンポーネントだけで使ってる？　要精査
+      return false;
     }
 
   },
   data:function(){
     return {
+      name: 'App',
       size: '',
       lotate: '',
       windowWidth: '',
