@@ -7,6 +7,7 @@
 - BootstrapVue の範囲内のみ jQuery 併用
 - store は相変わらず localStorage のみ
 
+- 2020/05/03 再開
 
 
 ## Build Setup
